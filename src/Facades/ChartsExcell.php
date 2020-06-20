@@ -1,6 +1,6 @@
 <?php
 
-namespace Gsferro\ChartsExcell;
+namespace Gsferro\ChartsExcell\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

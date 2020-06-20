@@ -1,6 +1,6 @@
 <?php
 
-namespace Gsferro\ChartsExcell;
+namespace Gsferro\ChartsExcell\Services;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;

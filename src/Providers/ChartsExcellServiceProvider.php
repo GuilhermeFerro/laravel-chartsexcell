@@ -1,6 +1,6 @@
 <?php
 
-namespace Gsferro\ChartsExcell;
+namespace Gsferro\ChartsExcell\Providers;
 
 use Gsferro\ChartsExcell\Services\ChartsExcell;
 use Illuminate\Support\ServiceProvider;
