@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Gsferro\\ChartsExcell\\ChartsExcellServiceProvider"
+                "Gsferro\\ChartsExcell\\Providers\\ChartsExcellServiceProvider"
             ],
             "aliases": {
                 "ChartsExcell": "Gsferro\\ChartsExcell\\Facades\\ChartsExcell"
