@@ -1,0 +1,11 @@
+{
+    "name": "gsferro/chartsexcell",
+    "description": "Facade para criação facil de charts dentro do pacote Laravel Excell",
+    "authors": [
+        {
+            "name": "Guilherme Ferro",
+            "email": "gsferroti@gmail.com"
+        }
+    ],
+    "require": {}
+}
