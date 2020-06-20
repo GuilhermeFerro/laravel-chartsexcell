@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Gsferro\ChartsExcell;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
@@ -14,6 +14,7 @@ class ChartsExcell
     private $titleSheet;
     private $index;
     private $countMaxLine;
+    private $linesHeader;
     /**
      * @var DataSeries
      */
@@ -24,10 +25,13 @@ class ChartsExcell
 
     }
 
-    public function set($countMaxLine, $titleSheet = "Worksheet", $index = 1)
+    public function set($countMaxLine = 0, $linesHeader = 1, $titleSheet = "Worksheet", $index = 1)
     {
         // pega a maior linha
         $this->countMaxLine = $countMaxLine;
+
+        // pega a maior linha
+        $this->linesHeader = $linesHeader;
 
         // pega o titulo da aba
         $this->titleSheet   = $titleSheet;
@@ -41,22 +45,22 @@ class ChartsExcell
         return $this;
     }
 
-    public function chart($title, $qtdLinhas, $posInicioLabel, $posInicioValue)
+    public function chart($title, $countLines, $columnBeginLabel, $columnBeginValue, $colummChartBegin, $columnChartEnd)
     {
-        $indexFinal  = $this->index + $qtdLinhas - 1;
+        $indexFinal  = $this->index + $countLines - 1;
 
         $label      = [
-            new DataSeriesValues('String', $this->titleSheet . '!$'.$posInicioLabel.'$3', null, 1),
+            new DataSeriesValues('String', $this->titleSheet . '!$'.$columnBeginLabel.'$'. $this->linesHeader, null, 1),
         ];
         $categories = [
             new DataSeriesValues('String'
-                , $this->titleSheet . '!$'.$posInicioLabel.'$' . $this->index . ':$'.$posInicioLabel.'$' . $indexFinal
-                , null, $qtdLinhas),
+                , $this->titleSheet . '!$'.$columnBeginLabel.'$' . $this->index . ':$'.$columnBeginLabel.'$' . $indexFinal
+                , null, $countLines),
         ];
         $values     = [
             new DataSeriesValues('Number'
-                , $this->titleSheet . '!$'.$posInicioValue.'$' . $this->index . ':$'.$posInicioValue.'$' . $indexFinal
-                , null, $qtdLinhas),
+                , $this->titleSheet . '!$'.$columnBeginValue.'$' . $this->index . ':$'.$columnBeginValue.'$' . $indexFinal
+                , null, $countLines),
         ];
 
         $series = new DataSeries($this->typeChart, null,
@@ -67,10 +71,12 @@ class ChartsExcell
         $chart  = new Chart("$title", new Title("$title"), $legend, $plot);
 
         // montando a posição do chart
-        $min = $this->countMaxLine + 8; // 3 do cabecalho + 5
+        $min = $this->linesHeader + 8; // 3 do cabecalho + 5
         $max = $min + 15;
-        $chart->setTopLeftPosition("$posInicioLabel$min");
-        $chart->setBottomRightPosition("$posInicioValue$max");
+
+
+        $chart->setTopLeftPosition( $colummChartBegin . $min );
+        $chart->setBottomRightPosition( $columnChartEnd . $max );
 
         return $chart;
     }

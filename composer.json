@@ -1,11 +1,31 @@
 {
     "name": "gsferro/chartsexcell",
-    "description": "Facade para criação facil de charts dentro do pacote Laravel Excell",
+    "description": "Facade para criar facilmente charts utilizando o pacote Laravel Excell",
     "authors": [
         {
             "name": "Guilherme Ferro",
             "email": "gsferroti@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "maatwebsite/excel": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gsferro\\ChartsExcell\\": "src/"
+        },
+        "files": [
+            "vendor\\gsferro\\chartsexcell\\src\\Helpers\\chartsexcell.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Gsferro\\ChartsExcell\\ChartsExcellServiceProvider"
+            ],
+            "aliases": {
+                "ChartsExcell": "Gsferro\\ChartsExcell\\Facades\\ChartsExcell"
+            }
+        }
+    }
 }

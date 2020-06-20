@@ -4,7 +4,7 @@ if ( ! function_exists('createcharts')) {
     /**
      * Initiate ChartsExcell hook.
      *
-     * @return \App\Services\ChartsExcell
+     * @return Gsferro\ChartsExcell\Services\ChartsExcell
      */
     function chartsexcell()
     {
