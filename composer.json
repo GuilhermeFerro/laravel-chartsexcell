@@ -15,7 +15,7 @@
             "Gsferro\\ChartsExcell\\": "src/"
         },
         "files": [
-            "Helpers\\chartsexcell.php"
+            "src\\Helpers\\chartsexcell.php"
         ]
     },
     "extra": {
