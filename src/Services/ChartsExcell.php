@@ -33,7 +33,7 @@ class ChartsExcell
         // Cabelhaço do excell
         $this->linesHeader = 1;
         // posição para começar a busca pelos dados
-        $this->index = 1;
+        $this->index = 2; // $this->linesHeader + 1
         // titulo da aba
         $this->titleSheet = "Worksheet";
         // default chart Pizza
@@ -68,6 +68,7 @@ class ChartsExcell
 
     /**
      * Cabelhaço do excell
+     * Adicionar +1 no $index para buscar os valores
      *
      * @param int $linesHeader
      * @return ChartsExcell
@@ -75,6 +76,7 @@ class ChartsExcell
     public function setLinesHeader(int $linesHeader)
     {
         $this->linesHeader = $linesHeader;
+        $this->setIndex($linesHeader + 1);
 
         return $this;
     }
