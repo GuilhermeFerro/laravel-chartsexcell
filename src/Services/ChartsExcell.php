@@ -30,21 +30,19 @@ class ChartsExcell
     {
         // Linha do maior resultado
         $this->countMaxLine = 1;
-
         // Cabelhaço do excell
         $this->linesHeader = 1;
-
         // posição para começar a busca pelos dados
         $this->index = 1;
-
         // titulo da aba
         $this->titleSheet = "Worksheet";
-
         // default chart Pizza
         $this->typeChart = DataSeries::TYPE_PIECHART;
     }
 
     /**
+     * Linha do maior resultado
+     *
      * @param int $countMaxLine
      */
     public function setCountMaxLine(int $countMaxLine): void
@@ -53,6 +51,8 @@ class ChartsExcell
     }
 
     /**
+     * Posição para começar a busca pelos dados
+     *
      * @param int $index
      */
     public function setIndex(int $index): void
@@ -61,6 +61,8 @@ class ChartsExcell
     }
 
     /**
+     * Cabelhaço do excell
+     *
      * @param int $linesHeader
      */
     public function setLinesHeader(int $linesHeader): void
@@ -69,13 +71,17 @@ class ChartsExcell
     }
 
     /**
+     * Titulo da aba - (Não pode ter espaços)
+     *
      * @param string $titleSheet
      */
     public function setTitleSheet(string $titleSheet): void
     {
-        $this->titleSheet = $titleSheet;
+        $this->titleSheet = trim($titleSheet);
     }
     /**
+     * Tipo do chart via DataSeries const
+     *
      * @param DataSeries $typeChart
      */
     public function setTypeChart(DataSeries $typeChart): void
@@ -84,6 +90,8 @@ class ChartsExcell
     }
 
     /**
+     * Monta o grafico
+     *
      * @param string $title "Titulo do gráfico"
      * @param int $countLines "Qtde linhas de registro"
      * @param string $columnBeginLabel "Letra da Coluna para os labels do chart"
