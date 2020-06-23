@@ -37,7 +37,7 @@ class ChartsExcell
         // titulo da aba
         $this->titleSheet = "Worksheet";
         // default chart Pizza
-        $this->typeChart = DataSeries::TYPE_PIECHART;
+        $this->typeChart = DataSeries::TYPE_PIECHART; // pieChart
     }
 
     /**
@@ -95,10 +95,10 @@ class ChartsExcell
     /**
      * Tipo do chart via DataSeries const
      *
-     * @param DataSeries $typeChart
+     * @param string $typeChart DataSeries::TYPE_PIECHART / pieChart
      * @return ChartsExcell
      */
-    public function setTypeChart(DataSeries $typeChart)
+    public function setTypeChart(string $typeChart)
     {
         $this->typeChart = $typeChart;
 
