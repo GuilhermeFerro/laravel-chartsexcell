@@ -44,49 +44,65 @@ class ChartsExcell
      * Linha do maior resultado
      *
      * @param int $countMaxLine
+     * @return ChartsExcell
      */
-    public function setCountMaxLine(int $countMaxLine): void
+    public function setCountMaxLine(int $countMaxLine)
     {
         $this->countMaxLine = $countMaxLine;
+
+        return $this;
     }
 
     /**
      * Posição para começar a busca pelos dados
      *
      * @param int $index
+     * @return ChartsExcell
      */
-    public function setIndex(int $index): void
+    public function setIndex(int $index)
     {
         $this->index = $index;
+
+        return $this;
     }
 
     /**
      * Cabelhaço do excell
      *
      * @param int $linesHeader
+     * @return ChartsExcell
      */
-    public function setLinesHeader(int $linesHeader): void
+    public function setLinesHeader(int $linesHeader)
     {
         $this->linesHeader = $linesHeader;
+
+        return $this;
     }
 
     /**
      * Titulo da aba - (Não pode ter espaços)
      *
      * @param string $titleSheet
+     * @return ChartsExcell
      */
-    public function setTitleSheet(string $titleSheet): void
+    public function setTitleSheet(string $titleSheet)
     {
         $this->titleSheet = trim($titleSheet);
+
+        return $this;
     }
+
     /**
      * Tipo do chart via DataSeries const
      *
      * @param DataSeries $typeChart
+     * @return ChartsExcell
      */
-    public function setTypeChart(DataSeries $typeChart): void
+    public function setTypeChart(DataSeries $typeChart)
     {
         $this->typeChart = $typeChart;
+
+        return $this;
     }
 
     /**
