@@ -11,7 +11,13 @@ use PhpOffice\PhpSpreadsheet\Chart\Title;
 
 class ChartsExcell
 {
+    /**
+     * @var string
+     */
     private $titleSheet;
+    /**
+     * @var int
+     */
     private $index;
     private $countMaxLine;
     private $linesHeader;
@@ -22,30 +28,70 @@ class ChartsExcell
 
     public function __construct()
     {
+        // Linha do maior resultado
+        $this->countMaxLine = 1;
 
-    }
-
-    public function set($countMaxLine = 0, $linesHeader = 1, $titleSheet = "Worksheet", $index = 1)
-    {
-        // pega a maior linha
-        $this->countMaxLine = $countMaxLine;
-
-        // pega a maior linha
-        $this->linesHeader = $linesHeader;
-
-        // pega o titulo da aba
-        $this->titleSheet   = $titleSheet;
+        // Cabelhaço do excell
+        $this->linesHeader = 1;
 
         // posição para começar a busca pelos dados
-        $this->index        = $index;
+        $this->index = 1;
+
+        // titulo da aba
+        $this->titleSheet = "Worksheet";
 
         // default chart Pizza
         $this->typeChart = DataSeries::TYPE_PIECHART;
-
-        return $this;
     }
 
-    public function chart($title, $countLines, $columnBeginLabel, $columnBeginValue, $colummChartBegin, $columnChartEnd)
+    /**
+     * @param int $countMaxLine
+     */
+    public function setCountMaxLine(int $countMaxLine): void
+    {
+        $this->countMaxLine = $countMaxLine;
+    }
+
+    /**
+     * @param int $index
+     */
+    public function setIndex(int $index): void
+    {
+        $this->index = $index;
+    }
+
+    /**
+     * @param int $linesHeader
+     */
+    public function setLinesHeader(int $linesHeader): void
+    {
+        $this->linesHeader = $linesHeader;
+    }
+
+    /**
+     * @param string $titleSheet
+     */
+    public function setTitleSheet(string $titleSheet): void
+    {
+        $this->titleSheet = $titleSheet;
+    }
+    /**
+     * @param DataSeries $typeChart
+     */
+    public function setTypeChart(DataSeries $typeChart): void
+    {
+        $this->typeChart = $typeChart;
+    }
+
+    /**
+     * @param string $title "Titulo do gráfico"
+     * @param int $countLines "Qtde linhas de registro"
+     * @param string $columnBeginLabel "Letra da Coluna para os labels do chart"
+     * @param string $columnBeginValue "Letra da Coluna para os valores do chart"
+     *
+     * @return Chart
+     */
+    public function chart(string $title, int $countLines, string $columnBeginLabel, string $columnBeginValue) : Chart
     {
         $indexFinal  = $this->index + $countLines - 1;
 
@@ -68,16 +114,6 @@ class ChartsExcell
         $plot   = new PlotArea(null, [$series]);
 
         $legend = new Legend();
-        $chart  = new Chart("$title", new Title("$title"), $legend, $plot);
-
-        // montando a posição do chart
-        $min = $this->linesHeader + 8; // 3 do cabecalho + 5
-        $max = $min + 15;
-
-
-        $chart->setTopLeftPosition( $colummChartBegin . $min );
-        $chart->setBottomRightPosition( $columnChartEnd . $max );
-
-        return $chart;
+        return new Chart("$title", new Title("$title"), $legend, $plot);
     }
 }
