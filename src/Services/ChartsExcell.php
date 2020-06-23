@@ -15,21 +15,16 @@ class ChartsExcell
      * @var string
      */
     private $titleSheet;
+    private $typeChart;
     /**
      * @var int
      */
     private $index;
     private $countMaxLine;
     private $linesHeader;
-    /**
-     * @var DataSeries
-     */
-    private $typeChart;
 
     public function __construct()
     {
-        // Linha do maior resultado
-        $this->countMaxLine = 1;
         // Cabelhaço do excell
         $this->linesHeader = 1;
         // posição para começar a busca pelos dados
@@ -41,16 +36,41 @@ class ChartsExcell
     }
 
     /**
-     * Linha do maior resultado
+     * Monta o grafico
      *
-     * @param int $countMaxLine
-     * @return ChartsExcell
+     * @param string $title       "Titulo do gráfico"
+     * @param int $countLines     "Qtde linhas de registro"
+     * @param string $columnLabel "Letra da Coluna para os labels do chart"
+     * @param string $columnValue "Letra da Coluna para os valores do chart"
+     *
+     * @return Chart
      */
-    public function setCountMaxLine(int $countMaxLine)
+    public function chart(string $title, int $countLines, string $columnLabel, string $columnValue) : Chart
     {
-        $this->countMaxLine = $countMaxLine;
+        $indexFinal  = $this->index + $countLines - 1;
 
-        return $this;
+        $label      = [
+            new DataSeriesValues('String'
+                , $this->titleSheet . '!$'.$columnLabel.'$'. $this->linesHeader
+                , null, 1),
+        ];
+        $categories = [
+            new DataSeriesValues('String'
+                , $this->titleSheet . '!$'.$columnLabel.'$' . $this->index . ':$'.$columnLabel.'$' . $indexFinal
+                , null, $countLines),
+        ];
+        $values     = [
+            new DataSeriesValues('Number'
+                , $this->titleSheet . '!$'.$columnValue.'$' . $this->index . ':$'.$columnValue.'$' . $indexFinal
+                , null, $countLines),
+        ];
+
+        $series = new DataSeries($this->typeChart, null,
+            range(0, \count($values) - 1), $label, $categories, $values);
+        $plot   = new PlotArea(null, [$series]);
+
+        $legend = new Legend();
+        return new Chart("$title", new Title("$title"), $legend, $plot);
     }
 
     /**
@@ -105,41 +125,5 @@ class ChartsExcell
         $this->typeChart = $typeChart;
 
         return $this;
-    }
-
-    /**
-     * Monta o grafico
-     *
-     * @param string $title "Titulo do gráfico"
-     * @param int $countLines "Qtde linhas de registro"
-     * @param string $columnBeginLabel "Letra da Coluna para os labels do chart"
-     * @param string $columnBeginValue "Letra da Coluna para os valores do chart"
-     *
-     * @return Chart
-     */
-    public function chart(string $title, int $countLines, string $columnBeginLabel, string $columnBeginValue) : Chart
-    {
-        $indexFinal  = $this->index + $countLines - 1;
-
-        $label      = [
-            new DataSeriesValues('String', $this->titleSheet . '!$'.$columnBeginLabel.'$'. $this->linesHeader, null, 1),
-        ];
-        $categories = [
-            new DataSeriesValues('String'
-                , $this->titleSheet . '!$'.$columnBeginLabel.'$' . $this->index . ':$'.$columnBeginLabel.'$' . $indexFinal
-                , null, $countLines),
-        ];
-        $values     = [
-            new DataSeriesValues('Number'
-                , $this->titleSheet . '!$'.$columnBeginValue.'$' . $this->index . ':$'.$columnBeginValue.'$' . $indexFinal
-                , null, $countLines),
-        ];
-
-        $series = new DataSeries($this->typeChart, null,
-            range(0, \count($values) - 1), $label, $categories, $values);
-        $plot   = new PlotArea(null, [$series]);
-
-        $legend = new Legend();
-        return new Chart("$title", new Title("$title"), $legend, $plot);
     }
 }
