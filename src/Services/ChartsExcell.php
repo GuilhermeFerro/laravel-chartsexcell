@@ -38,6 +38,10 @@ class ChartsExcell
      * @var null
      */
     private $layout;
+    /**
+     * @var Legend
+     */
+    private $legend;
 
     /**
      * ChartsExcell constructor.
@@ -54,6 +58,8 @@ class ChartsExcell
         $this->typeChart = DataSeries::TYPE_PIECHART; // pieChart
         // layout
         $this->layout = null;
+        // legend
+        $this->legend = new Legend();
     }
 
     /**
@@ -90,8 +96,7 @@ class ChartsExcell
             range(0, \count($values) - 1), $label, $categories, $values);
         $plot   = new PlotArea($this->layout, [$series]);
 
-        $legend = new Legend();
-        return new Chart("$title", new Title("$title"), $legend, $plot);
+        return new Chart("$title", new Title("$title"), $this->legend, $plot);
     }
 
     /**
@@ -100,9 +105,23 @@ class ChartsExcell
      * @param Layout $layout
      * @return ChartsExcell
      */
-    public function setLayout(?Layout $layout)
+    public function setLayout(Layout $layout)
     {
         $this->layout = $layout;
+
+        return $this;
+    }
+
+
+    /**
+     * Possibilidade de mudar a Legend
+     *
+     * @param Legend $legend
+     * @return ChartsExcell
+     */
+    public function setLegend(Legend $legend)
+    {
+        $this->legend = $legend;
 
         return $this;
     }
