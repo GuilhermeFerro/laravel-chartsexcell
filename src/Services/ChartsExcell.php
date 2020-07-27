@@ -5,24 +5,43 @@ namespace Gsferro\ChartsExcell\Services;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 
+/**
+ * Class ChartsExcell
+ * Forma facil de gerar grafico dentro do excell via laravel
+ *
+ * @package Gsferro\ChartsExcell\Services
+ */
 class ChartsExcell
 {
     /**
      * @var string
      */
     private $titleSheet;
+    /**
+     * @var string
+     */
     private $typeChart;
     /**
      * @var int
      */
     private $index;
-    private $countMaxLine;
+    /**
+     * @var int
+     */
     private $linesHeader;
+    /**
+     * @var null
+     */
+    private $layout;
 
+    /**
+     * ChartsExcell constructor.
+     */
     public function __construct()
     {
         // Cabelhaço do excell
@@ -33,6 +52,8 @@ class ChartsExcell
         $this->titleSheet = "Worksheet";
         // default chart Pizza
         $this->typeChart = DataSeries::TYPE_PIECHART; // pieChart
+        // layout
+        $this->layout = null;
     }
 
     /**
@@ -67,10 +88,23 @@ class ChartsExcell
 
         $series = new DataSeries($this->typeChart, null,
             range(0, \count($values) - 1), $label, $categories, $values);
-        $plot   = new PlotArea(null, [$series]);
+        $plot   = new PlotArea($this->layout, [$series]);
 
         $legend = new Legend();
         return new Chart("$title", new Title("$title"), $legend, $plot);
+    }
+
+    /**
+     * Possibilidade de mudar o layout do gráfico
+     *
+     * @param Layout $layout
+     * @return ChartsExcell
+     */
+    public function setLayout(?Layout $layout)
+    {
+        $this->layout = $layout;
+
+        return $this;
     }
 
     /**
