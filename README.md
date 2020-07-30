@@ -2,9 +2,26 @@
 Um pacote para simplificar a criação de gráficos dentro do excell utilizando o pacote `laravel-excell`, visto que nem a 
 propria documentação do pacote fala sobre a implementação de gráficos e tão pouco encontrasse formas de implementar na internet.
 
-### Uso
+### Instalação
+    composer require gsferro/chartsexcell
 
-`$createChart = chartsexcell();`
+Como o pacote usa o laravel-excell (`"maatwebsite/excel": "^3.1"`) como dependência, coloque no arquivo app.php: 
+
+- providers
+    
+    
+    Maatwebsite\Excel\ExcelServiceProvider::class,
+
+- aliases
+ 
+    
+    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+### Uso
+- Para iniciarlizar:
+
+    
+    $createChart = chartsexcell();
 
 #### Paramentros gerais:
 - Layout
