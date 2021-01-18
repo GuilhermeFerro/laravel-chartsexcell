@@ -5,23 +5,27 @@ propria documentação do pacote fala sobre a implementação de gráficos e tã
 ### Instalação
     composer require gsferro/chartsexcell
 
-Como o pacote usa o laravel-excell (`"maatwebsite/excel": "^3.1"`) como dependência, coloque no arquivo app.php: 
+### Dependências
+```
+maatwebsite/excel": "^3.1
+```
 
+### coloque no arquivo app.php: 
 - providers
-    
-    
-    Maatwebsite\Excel\ExcelServiceProvider::class,
+```
+Maatwebsite\Excel\ExcelServiceProvider::class,
+```
 
 - aliases
- 
-    
-    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
+```
+'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+```
 ### Uso
 - Para iniciarlizar:
 
-    
-    $createChart = chartsexcell();
+``` php
+$createChart = chartsexcell();
+```
 
 #### Paramentros gerais:
 - Layout
@@ -34,6 +38,7 @@ Como o pacote usa o laravel-excell (`"maatwebsite/excel": "^3.1"`) como dependê
  */
  ->setLayout(Layout $layout) // default: null
 ```
+
 - porcentagem show
   > `->setLayout((new Layout())->setShowPercent(true))`
 - valores show
@@ -47,12 +52,23 @@ Como o pacote usa o laravel-excell (`"maatwebsite/excel": "^3.1"`) como dependê
  * @param Legend $legend
  * @return ChartsExcell
  */
-->setLegend(Legend $legend) // default: new Legend()
+->setLegend(Legend $legend = null) // default: new Legend('r')
 ```
-- legenda bottom
-> `->setLegend((new Legend('b'))` 
 
-- infos gerais
+- sem legenda
+> `->setLegend(null)`
+- legenda RIGHT
+> `->setLegend((new Legend('r'))` 
+- legenda LEFT
+> `->setLegend((new Legend('l'))` 
+- legenda BOTTOM
+> `->setLegend((new Legend('b'))` 
+- legenda TOP
+> `->setLegend((new Legend('t'))` 
+- legenda TOPRIGHT
+> `->setLegend((new Legend('tr'))` 
+
+- Informações Gerais
 ```php  
 /**
  * Cabelhaço do excell

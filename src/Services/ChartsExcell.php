@@ -119,7 +119,7 @@ class ChartsExcell
      * @param Legend $legend
      * @return ChartsExcell
      */
-    public function setLegend(Legend $legend)
+    public function setLegend(Legend $legend = null)
     {
         $this->legend = $legend;
 
